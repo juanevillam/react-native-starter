@@ -74,7 +74,6 @@ export const HomeScreen = () => {
         text="home.subtitle"
         variant="bodyLarge"
       />
-
       <View style={styles.section}>
         <Text text="home.language" variant="titleMedium" />
         <View style={styles.languageRow}>
@@ -90,25 +89,23 @@ export const HomeScreen = () => {
           />
         </View>
       </View>
-
       <View style={styles.section}>
         <Text text="theme.title" variant="titleMedium" />
         <RadioButton.Group onValueChange={handleThemeChange} value={theme}>
           <View style={styles.radioRow}>
-            <RadioButton value="system" />
+            <RadioButton.Android value="system" />
             <Text text="theme.system" variant="bodyMedium" />
           </View>
           <View style={styles.radioRow}>
-            <RadioButton value="light" />
+            <RadioButton.Android value="light" />
             <Text text="theme.light" variant="bodyMedium" />
           </View>
           <View style={styles.radioRow}>
-            <RadioButton value="dark" />
+            <RadioButton.Android value="dark" />
             <Text text="theme.dark" variant="bodyMedium" />
           </View>
         </RadioButton.Group>
       </View>
-
       <Button label="home.logout" mode="outlined" onPress={handleLogout} />
     </View>
   );
