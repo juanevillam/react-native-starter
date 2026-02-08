@@ -1,0 +1,38 @@
+{
+  "app-routes": {
+    "home": "Inicio"
+  },
+  "home": {
+    "language": "Idioma",
+    "english": "English",
+    "spanish": "Español",
+    "logout": "Cerrar sesión",
+    "subtitle": "Administra tus preferencias"
+  },
+  "theme": {
+    "title": "Tema",
+    "system": "Sistema",
+    "light": "Claro",
+    "dark": "Oscuro"
+  },
+  "auth": {
+    "login": {
+      "title": "Bienvenido",
+      "subtitle": "Ingresa tu correo para comenzar",
+      "button": {
+        "label": "Comenzar"
+      }
+    }
+  },
+  "fields": {
+    "email": "Correo electrónico"
+  },
+  "validations": {
+    "required": "Requerido",
+    "must-be-valid": "Debe ser válido"
+  },
+  "snackbar": {
+    "email-is-required": "El campo \"Correo electrónico\" es requerido",
+    "email-must-be-valid": "El campo \"Correo electrónico\" debe ser válido"
+  }
+}
