@@ -1,0 +1,87 @@
+{
+  "name": "react-native-starter",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "android": "react-native run-android",
+    "ios": "react-native run-ios",
+    "start": "react-native start",
+    "test": "jest",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier --write .",
+    "postinstall": "patch-package",
+    "prepare": "husky"
+  },
+  "dependencies": {
+    "@d11/react-native-fast-image": "^8.13.0",
+    "@hookform/resolvers": "^5.2.2",
+    "@react-native-async-storage/async-storage": "^2.2.0",
+    "@react-navigation/native": "^7.1.28",
+    "@react-navigation/native-stack": "^7.12.0",
+    "@react-navigation/stack": "^7.7.1",
+    "@reduxjs/toolkit": "^2.11.2",
+    "@zoontek/react-native-navigation-bar": "^1.0.2",
+    "i18next": "^25.8.4",
+    "react": "19.2.4",
+    "react-hook-form": "^7.66.1",
+    "react-i18next": "^16.3.5",
+    "react-native": "0.83.1",
+    "react-native-gesture-handler": "^2.29.1",
+    "react-native-pager-view": "^8.0.0",
+    "react-native-paper": "^5.14.5",
+    "react-native-reanimated": "^4.2.1",
+    "react-native-safe-area-context": "^5.6.2",
+    "react-native-screens": "^4.23.0",
+    "react-native-svg": "^15.15.2",
+    "react-native-tab-view": "^4.2.2",
+    "react-native-worklets": "^0.7.2",
+    "react-redux": "^9.2.0",
+    "redux": "^5.0.1",
+    "redux-persist": "^6.0.0",
+    "yup": "^1.7.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.25.2",
+    "@babel/preset-env": "^7.25.3",
+    "@babel/runtime": "^7.25.0",
+    "@react-native-community/cli": "20.1.1",
+    "@react-native-community/cli-platform-android": "20.1.1",
+    "@react-native-community/cli-platform-ios": "20.1.1",
+    "@react-native/babel-preset": "0.83.1",
+    "@react-native/eslint-config": "0.83.1",
+    "@react-native/metro-config": "0.83.1",
+    "@react-native/typescript-config": "0.83.1",
+    "@types/jest": "^30.0.0",
+    "@types/react": "^19.2.0",
+    "@types/react-test-renderer": "^19.1.0",
+    "@typescript-eslint/eslint-plugin": "^8.48.0",
+    "@typescript-eslint/parser": "^8.48.0",
+    "babel-plugin-module-resolver": "^5.0.2",
+    "eslint": "^8.57.1",
+    "eslint-plugin-import": "^2.32.0",
+    "eslint-plugin-react": "^7.37.5",
+    "eslint-plugin-react-hooks": "^7.0.1",
+    "eslint-plugin-react-native": "^5.0.0",
+    "eslint-plugin-unused-imports": "^4.3.0",
+    "husky": "^9.1.7",
+    "jest": "^30.2.0",
+    "lint-staged": "^16.2.7",
+    "patch-package": "^8.0.1",
+    "prettier": "^3.8.1",
+    "react-test-renderer": "19.2.4",
+    "typescript": "^5.8.3"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "lint-staged": {
+    "*.{ts,tsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{json,md}": [
+      "prettier --write"
+    ]
+  }
+}

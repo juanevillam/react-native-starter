@@ -1,0 +1,47 @@
+diff --git a/node_modules/react-native-paper/src/components/TextInput/helpers.tsx b/node_modules/react-native-paper/src/components/TextInput/helpers.tsx
+index 1234567..abcdefg 100644
+--- a/node_modules/react-native-paper/src/components/TextInput/helpers.tsx
++++ b/node_modules/react-native-paper/src/components/TextInput/helpers.tsx
+@@ -459,9 +459,6 @@
+ 
+   if (theme.isV3) {
+     if (disabled) {
+-      if (theme.dark) {
+-        return 'transparent';
+-      }
+       return theme.colors.surfaceDisabled;
+     }
+ 
+diff --git a/node_modules/react-native-paper/src/components/TouchableRipple/TouchableRipple.native.tsx b/node_modules/react-native-paper/src/components/TouchableRipple/TouchableRipple.native.tsx
+index 1234567..abcdefg 100644
+--- a/node_modules/react-native-paper/src/components/TouchableRipple/TouchableRipple.native.tsx
++++ b/node_modules/react-native-paper/src/components/TouchableRipple/TouchableRipple.native.tsx
+@@ -105,22 +105,13 @@
+       {...rest}
+       ref={ref}
+       disabled={disabled}
+-      style={[borderless && styles.overflowHidden, style]}
++      style={({ pressed }) => [
++        borderless && styles.overflowHidden,
++        { opacity: pressed && rippleEffectEnabled ? 0.5 : 1 },
++        style,
++      ]}
+     >
+-      {({ pressed }) => (
+-        <>
+-          {pressed && rippleEffectEnabled && (
+-            <View
+-              testID="touchable-ripple-underlay"
+-              style={[
+-                styles.underlay,
+-                { backgroundColor: calculatedUnderlayColor },
+-              ]}
+-            />
+-          )}
+-          {React.Children.only(children)}
+-        </>
+-      )}
++      {React.Children.only(children)}
+     </Pressable>
+   );
+ };

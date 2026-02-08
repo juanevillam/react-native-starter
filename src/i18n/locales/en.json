@@ -1,0 +1,38 @@
+{
+  "app-routes": {
+    "home": "Home"
+  },
+  "home": {
+    "language": "Language",
+    "english": "English",
+    "spanish": "Español",
+    "logout": "Log out",
+    "subtitle": "Manage your preferences"
+  },
+  "theme": {
+    "title": "Theme",
+    "system": "System",
+    "light": "Light",
+    "dark": "Dark"
+  },
+  "auth": {
+    "login": {
+      "title": "Welcome",
+      "subtitle": "Enter your email to get started",
+      "button": {
+        "label": "Get Started"
+      }
+    }
+  },
+  "fields": {
+    "email": "Email"
+  },
+  "validations": {
+    "required": "Required",
+    "must-be-valid": "Must be valid"
+  },
+  "snackbar": {
+    "email-is-required": "The field \"Email\" is required",
+    "email-must-be-valid": "The field \"Email\" must be valid"
+  }
+}
