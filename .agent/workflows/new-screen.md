@@ -16,7 +16,6 @@ description: How to create a new screen with navigation registration following R
 3. **Create the screen file** at `src/screens/<app|auth>/<Name>Screen.tsx`:
 
 ```tsx
-//#region Imports
 import { useMemo } from 'react';
 
 import { StyleSheet, View } from 'react-native';
@@ -25,15 +24,10 @@ import { useTheme } from 'react-native-paper';
 
 import { Text } from '@/components/ui';
 import { screenStyles } from '@/styles/screenStyles';
-//#endregion Imports
 
-//#region Component
 export const MyScreen = () => {
-  //#region Hooks
   const { colors } = useTheme();
-  //#endregion Hooks
 
-  //#region Styles
   const dynamicStyles = useMemo(
     () =>
       StyleSheet.create({
@@ -43,9 +37,7 @@ export const MyScreen = () => {
       }),
     [colors.background],
   );
-  //#endregion Styles
 
-  //#region Render
   return (
     <View style={[screenStyles.container, dynamicStyles.container]}>
       <Text text="my-screen.title" variant="headlineLarge" />
@@ -57,9 +49,7 @@ export const MyScreen = () => {
       {/* Screen content */}
     </View>
   );
-  //#endregion Render
 };
-//#endregion Component
 ```
 
 4. **Register the route** — 3 files need updates:
@@ -67,12 +57,10 @@ export const MyScreen = () => {
    **a. Add to the param list** in the navigator file (e.g., `src/navigation/AppNavigator.tsx`):
 
    ```typescript
-   //#region Types
    type AppStackParamList = {
      Home: undefined;
      MyScreen: undefined; // ← add here
    };
-   //#endregion Types
    ```
 
    **b. Add the route constant** in `src/navigation/routes.ts`:
@@ -92,12 +80,10 @@ export const MyScreen = () => {
    <Stack.Screen name={APP_ROUTES.MY_SCREEN} component={MyScreen} />;
    ```
 
-   The navigator export stays in the bottom Exports region:
+   The navigator export stays in the bottom exports region:
 
    ```typescript
-   //#region Exports
    export { type AppStackParamList, AppNavigator };
-   //#endregion Exports
    ```
 
 5. **Add i18n translations** if the screen has user-facing text (see `/add-translation` workflow).

@@ -1,4 +1,3 @@
-//#region Imports
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { configureStore } from '@reduxjs/toolkit';
 import {
@@ -13,18 +12,14 @@ import {
 } from 'redux-persist';
 
 import { rootReducer } from '../rootReducer';
-//#endregion Imports
 
-//#region Persist Configuration
 const PERSIST_CONFIG = {
   key: 'root',
   storage: AsyncStorage,
 };
 
 const persistedReducer = persistReducer(PERSIST_CONFIG, rootReducer);
-//#endregion Persist Configuration
 
-//#region Store Setup
 const store = configureStore({
   reducer: persistedReducer,
   middleware: getDefaultMiddleware =>
@@ -36,8 +31,5 @@ const store = configureStore({
 });
 
 const persistor = persistStore(store);
-//#endregion Store Setup
 
-//#region Exports
 export { store, persistor };
-//#endregion Exports

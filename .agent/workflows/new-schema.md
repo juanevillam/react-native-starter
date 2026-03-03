@@ -12,18 +12,13 @@ description: How to create a new Yup form validation schema following ReactNativ
 2. **Create the schema file** at `src/schemas/<feature>/<name>Schema.ts`:
 
 ```typescript
-//#region Imports
 import * as yup from 'yup';
-//#endregion Imports
 
-//#region Types
 type MyFormValues = {
   email: string;
   name: string;
 };
-//#endregion Types
 
-//#region Constants
 const defaultValues: MyFormValues = {
   email: '',
   name: '',
@@ -38,11 +33,8 @@ const mySchema = yup.object().shape({
     .string()
     .required({ input: 'required', snackbar: 'name-is-required' }),
 });
-//#endregion Constants
 
-//#region Exports
 export { type MyFormValues, defaultValues, mySchema };
-//#endregion Exports
 ```
 
 3. **Validation message format:**

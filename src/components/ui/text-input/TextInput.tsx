@@ -1,4 +1,3 @@
-//#region Imports
 import React, { forwardRef } from 'react';
 
 import {
@@ -13,17 +12,13 @@ import { useTranslation } from 'react-i18next';
 import { HelperText, TextInput as PaperTextInput } from 'react-native-paper';
 
 import type { TextInputComponent, TextInputProps } from './types';
-//#endregion Imports
 
-//#region Styles
 const styles = StyleSheet.create({
   wrapper: {
     marginBottom: 8,
   },
 });
-//#endregion Styles
 
-//#region Component
 const TextInputContent = <T extends FieldValues>(
   {
     control,
@@ -36,11 +31,8 @@ const TextInputContent = <T extends FieldValues>(
   }: TextInputProps<T>,
   ref: React.Ref<NativeTextInput | null>,
 ) => {
-  //#region Hooks
   const { t } = useTranslation();
-  //#endregion Hooks
 
-  //#region Render
   return (
     <Controller
       control={control}
@@ -70,12 +62,8 @@ const TextInputContent = <T extends FieldValues>(
       )}
     />
   );
-  //#endregion Render
 };
 
 const TextInput = forwardRef(TextInputContent) as TextInputComponent;
-//#endregion Component
 
-//#region Exports
 export { TextInputContent, TextInput };
-//#endregion Exports

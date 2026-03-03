@@ -1,4 +1,3 @@
-//#region Imports
 import React from 'react';
 
 import { useTranslation } from 'react-i18next';
@@ -6,9 +5,7 @@ import {
   Button as PaperButton,
   type ButtonProps as PaperButtonProps,
 } from 'react-native-paper';
-//#endregion Imports
 
-//#region Types
 type ButtonProps = {
   disabled?: PaperButtonProps['disabled'];
   label: string;
@@ -17,9 +14,7 @@ type ButtonProps = {
   mode: PaperButtonProps['mode'];
   onPress: PaperButtonProps['onPress'];
 };
-//#endregion Types
 
-//#region Component
 export const Button = ({
   disabled,
   label,
@@ -28,11 +23,8 @@ export const Button = ({
   mode,
   onPress,
 }: ButtonProps) => {
-  //#region Hooks
   const { t } = useTranslation();
-  //#endregion Hooks
 
-  //#region Render
   return (
     <PaperButton
       disabled={disabled}
@@ -43,6 +35,4 @@ export const Button = ({
       {loading && loadingLabel ? t(loadingLabel) : t(label)}
     </PaperButton>
   );
-  //#endregion Render
 };
-//#endregion Component

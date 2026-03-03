@@ -1,4 +1,3 @@
-//#region Imports
 import React from 'react';
 
 import type { ImageStyle, LayoutChangeEvent, StyleProp } from 'react-native';
@@ -7,9 +6,7 @@ import FastImage, {
   type FastImageProps,
   type ImageStyle as FastImageStyle,
 } from '@d11/react-native-fast-image';
-//#endregion Imports
 
-//#region Types
 type ImageProps = {
   cache?: 'cacheOnly' | 'immutable' | 'web';
   onLayout?: (event: LayoutChangeEvent) => void;
@@ -18,9 +15,7 @@ type ImageProps = {
   source: FastImageProps['source'];
   style: StyleProp<ImageStyle>;
 };
-//#endregion Types
 
-//#region Helpers
 const resolveSource = (
   source: FastImageProps['source'],
   cache?: ImageProps['cache'],
@@ -34,9 +29,7 @@ const resolveSource = (
     ...(priority && { priority: FastImage.priority[priority] }),
   };
 };
-//#endregion Helpers
 
-//#region Component
 export const Image = React.memo(
   ({
     cache,
@@ -54,4 +47,3 @@ export const Image = React.memo(
     />
   ),
 );
-//#endregion Component

@@ -20,25 +20,21 @@ description: How to add a new navigation route to an existing navigator
    For app routes, edit `src/navigation/AppNavigator.tsx`:
 
    ```typescript
-   //#region Types
    type AppStackParamList = {
      Home: undefined;
      MyScreen: undefined; // ← add here
      // or with params:
      Details: { id: string }; // ← with route params
    };
-   //#endregion Types
    ```
 
    For auth routes, edit `src/navigation/AuthNavigator.tsx`:
 
    ```typescript
-   //#region Types
    type AuthStackParamList = {
      Login: undefined;
      ForgotPassword: undefined; // ← add here
    };
-   //#endregion Types
    ```
 
    **Step 2 — Add the route constant** in `src/navigation/routes.ts`:
@@ -58,12 +54,10 @@ description: How to add a new navigation route to an existing navigator
    <Stack.Screen name={APP_ROUTES.MY_SCREEN} component={MyScreen} />;
    ```
 
-   Ensure the navigator exports types via the bottom Exports region:
+   Ensure the navigator exports types via the bottom exports region:
 
    ```typescript
-   //#region Exports
    export { type AppStackParamList, AppNavigator };
-   //#endregion Exports
    ```
 
 4. **Route naming conventions:**

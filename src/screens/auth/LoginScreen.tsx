@@ -1,4 +1,3 @@
-//#region Imports
 import { useCallback, useMemo } from 'react';
 
 import { StyleSheet, View } from 'react-native';
@@ -20,11 +19,8 @@ import {
 } from '@/schemas/auth/loginSchema';
 import { screenStyles } from '@/styles/screenStyles';
 import { getFormErrorMessage } from '@/utils/getFormErrorMessage';
-//#endregion Imports
 
-//#region Component
 export const LoginScreen = () => {
-  //#region Hooks
   const { colors } = useTheme();
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
@@ -38,9 +34,7 @@ export const LoginScreen = () => {
     mode: 'onChange',
     resolver: yupResolver(loginSchema),
   });
-  //#endregion Hooks
 
-  //#region Styles
   const dynamicStyles = useMemo(
     () =>
       StyleSheet.create({
@@ -50,9 +44,7 @@ export const LoginScreen = () => {
       }),
     [colors.background],
   );
-  //#endregion Styles
 
-  //#region Handlers
   const onSubmit = useCallback(
     (data: LoginFormValues) => {
       console.log('Login with:', data.email);
@@ -69,9 +61,7 @@ export const LoginScreen = () => {
 
     showSnackbar(t(message));
   });
-  //#endregion Handlers
 
-  //#region Render
   return (
     <View style={[screenStyles.container, dynamicStyles.container]}>
       <Text text="auth.login.title" variant="headlineLarge" />
@@ -95,6 +85,4 @@ export const LoginScreen = () => {
       />
     </View>
   );
-  //#endregion Render
 };
-//#endregion Component

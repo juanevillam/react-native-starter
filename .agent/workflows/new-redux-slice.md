@@ -12,23 +12,16 @@ description: How to create a new Redux slice with selectors following ReactNativ
 2. **Create the slice file** at `src/redux/slices/<name>Slice.ts`:
 
 ```typescript
-//#region Imports
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
-//#endregion Imports
 
-//#region Types
 type MyState = {
   // state shape...
 };
-//#endregion Types
 
-//#region Constants
 const initialState: MyState = {
   // defaults...
 };
-//#endregion Constants
 
-//#region Slice
 const mySlice = createSlice({
   name: 'my',
   initialState,
@@ -39,12 +32,9 @@ const mySlice = createSlice({
     clearMy: () => initialState, // return initialState directly
   },
 });
-//#endregion Slice
 
-//#region Exports
 export const { setSomething, clearMy } = mySlice.actions;
 export const myReducer = mySlice.reducer;
-//#endregion Exports
 ```
 
 3. **Register in rootReducer** (`src/redux/rootReducer.ts`):
@@ -61,16 +51,12 @@ export const myReducer = mySlice.reducer;
 4. **Add selectors** to `src/redux/selectors.ts` using the bottom Exports pattern:
 
    ```typescript
-   //#region My Selectors
    const selectSomething = (state: RootState) => state.my.something;
-   //#endregion My Selectors
 
-   //#region Exports
    export { selectIsAuthenticated, selectSomething /* ...others */ };
-   //#endregion Exports
    ```
 
-   Note: selectors are declared without `export` at definition, then gathered in the bottom Exports region.
+   Note: selectors are declared without `export` at definition, then gathered in the bottom exports region.
 
 5. **Update barrel files:**
    - `src/redux/slices/index.ts` — add action and reducer exports

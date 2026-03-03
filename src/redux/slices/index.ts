@@ -1,4 +1,3 @@
-//#region Exports
 export { setIsAuthenticated, clearAuth, authReducer } from './authSlice';
 export {
   setLanguage,
@@ -6,4 +5,3 @@ export {
   clearLayout,
   layoutReducer,
 } from './layoutSlice';
-//#endregion Exports
