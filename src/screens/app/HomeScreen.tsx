@@ -1,4 +1,3 @@
-//#region Imports
 import { useMemo } from 'react';
 
 import { StyleSheet, View } from 'react-native';
@@ -13,9 +12,7 @@ import { setLanguage, setTheme } from '@/redux/slices/layoutSlice';
 import { useAppDispatch, useAppSelector } from '@/redux/store/hooks';
 import { screenStyles } from '@/styles/screenStyles';
 import { type Theme } from '@/styles/themes';
-//#endregion Imports
 
-//#region Styles
 const styles = StyleSheet.create({
   languageRow: {
     flexDirection: 'row',
@@ -30,18 +27,13 @@ const styles = StyleSheet.create({
     marginBottom: 24,
   },
 });
-//#endregion Styles
 
-//#region Component
 export const HomeScreen = () => {
-  //#region Hooks
   const { i18n } = useTranslation();
   const { colors } = useTheme();
   const dispatch = useAppDispatch();
   const { language, theme } = useAppSelector(store => store.layout);
-  //#endregion Hooks
 
-  //#region Handlers
   const handleSwitchLanguage = (lang: Language) => {
     i18n.changeLanguage(lang);
     dispatch(setLanguage(lang));
@@ -51,9 +43,7 @@ export const HomeScreen = () => {
     dispatch(setTheme(newTheme as Theme));
 
   const handleLogout = () => dispatch(clearAuth());
-  //#endregion Handlers
 
-  //#region Styles
   const dynamicStyles = useMemo(
     () =>
       StyleSheet.create({
@@ -63,9 +53,7 @@ export const HomeScreen = () => {
       }),
     [colors.background],
   );
-  //#endregion Styles
 
-  //#region Render
   return (
     <View style={[screenStyles.container, dynamicStyles.container]}>
       <Text text="app-routes.home" variant="headlineLarge" />
@@ -109,6 +97,4 @@ export const HomeScreen = () => {
       <Button label="home.logout" mode="outlined" onPress={handleLogout} />
     </View>
   );
-  //#endregion Render
 };
-//#endregion Component

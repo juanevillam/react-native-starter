@@ -17,38 +17,26 @@ description: How to create a new React Native component following ReactNativeSta
 3. **Create the component file** using this template:
 
 ```tsx
-//#region Imports
 import React from 'react';
 
 import { StyleSheet, View } from 'react-native';
 
 // ... other @/ imports ...
 // ... relative imports ...
-//#endregion Imports
 
-//#region Types
 type MyComponentProps = {
   // props here...
 };
-//#endregion Types
 
-//#region Styles
 const styles = StyleSheet.create({
   container: { flex: 1, padding: 16 },
 });
-//#endregion Styles
 
-//#region Component
 export const MyComponent = ({ ...props }: MyComponentProps) => {
-  //#region Hooks
   // hooks here...
-  //#endregion Hooks
 
-  //#region Render
   return <View style={styles.container}>{/* JSX */}</View>;
-  //#endregion Render
 };
-//#endregion Component
 ```
 
 4. **Apply conventions:**

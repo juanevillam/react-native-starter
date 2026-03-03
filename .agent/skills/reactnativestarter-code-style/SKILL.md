@@ -9,88 +9,9 @@ This document defines the authoritative coding conventions for the ReactNativeSt
 
 ---
 
-## 1. Region Comments
-
-Every file is organized with `//#region Name` and `//#endregion Name` comments. These are **mandatory** — never omit them.
-
-### Standard section order (use only sections that apply):
-
-```typescript
-//#region Imports
-// ... imports ...
-//#endregion Imports
-
-//#region Types
-// ... local types ...
-//#endregion Types
-
-//#region Constants
-// ... module-level constants ...
-//#endregion Constants
-
-//#region Styles
-// ... module-level StyleSheet.create ...
-//#endregion Styles
-
-//#region Component
-export const MyComponent = () => {
-  //#region Hooks
-  // ... all hooks (useState, useRef, useForm, custom hooks) ...
-  //#endregion Hooks
-
-  //#region Derived Values
-  // ... computed values from hooks/props ...
-  //#endregion Derived Values
-
-  //#region Handlers
-  // ... event handler functions ...
-  //#endregion Handlers
-
-  //#region Helpers
-  // ... helper functions used in render ...
-  //#endregion Helpers
-
-  //#region Styles
-  // ... dynamic styles via useMemo + StyleSheet.create ...
-  //#endregion Styles
-
-  //#region Effects
-  // ... useEffect calls ...
-  //#endregion Effects
-
-  //#region Render
-  return ( /* JSX */ );
-  //#endregion Render
-};
-//#endregion Component
-
-//#region Exports
-export { MyComponent };
-//#endregion Exports
-```
-
-For non-component files (hooks, utils, slices):
-
-- Hooks use `//#region Custom Hook` ... `//#endregion Custom Hook`
-- Redux slices use `//#region Slice` ... `//#endregion Slice`
-- Utils use `//#region Utils` ... `//#endregion Utils`
-- Helpers use `//#region Helpers` ... `//#endregion Helpers`
-- Exports use `//#region Exports` ... `//#endregion Exports`
-- Return values use `//#region Return` ... `//#endregion Return`
-
-### Export pattern:
-
-Declare items without `export` at the point of definition. Then add a bottom `//#region Exports` section with all exports gathered:
-
-```typescript
-//#region Exports
-export { type MyType, myFunction, MY_CONSTANT };
-//#endregion Exports
-```
-
 ---
 
-## 2. Imports
+## 1. Imports
 
 ### Ordering (enforced by ESLint `import/order`):
 
@@ -122,7 +43,7 @@ import type { TextInputComponent, TextInputProps } from './types';
 
 ---
 
-## 3. File & Directory Naming
+## 2. File & Directory Naming
 
 | Kind                 | Convention                    | Example                                           |
 | -------------------- | ----------------------------- | ------------------------------------------------- |
@@ -141,34 +62,31 @@ Do **not** over-nest. If a directory contains only one file, flatten it into the
 
 ---
 
-## 4. Types & Type Safety
+## 3. Types & Type Safety
 
 - **No `any`**. Use `unknown`, proper interfaces, or type assertions with `as unknown as T` when unavoidable.
 - **No `export default`** for anything. Always use named exports.
 - **Strict mode is enabled** (`noUncheckedIndexedAccess: true` in `tsconfig.json`).
-- Local component prop types are defined in the same file under `//#region Types`.
+- Local component prop types are defined in the same file.
 - Shared types across multiple files go in a separate `types.ts` file in the same directory.
 - App-wide types live in `src/types/index.ts` (`Focusable`, `VoidCallback`, `FormRefs`, `ScrollViewRef`).
 
 ---
 
-## 5. StyleSheet & Styling
+## 4. StyleSheet & Styling
 
 ### Static styles → module level:
 
 ```typescript
-//#region Styles
 const styles = StyleSheet.create({
   container: { flex: 1, padding: 24 },
   title: { fontSize: 20, fontWeight: 'bold' },
 });
-//#endregion Styles
 ```
 
 ### Dynamic styles → `useMemo` + `StyleSheet.create` inside component:
 
 ```typescript
-//#region Styles
 const dynamicStyles = useMemo(
   () =>
     StyleSheet.create({
@@ -178,7 +96,6 @@ const dynamicStyles = useMemo(
     }),
   [colors.background],
 );
-//#endregion Styles
 ```
 
 ### Apply both via array syntax:
@@ -205,7 +122,7 @@ Use theme colors via `useTheme()` from `react-native-paper` — never hardcode R
 
 ---
 
-## 6. Component Architecture
+## 5. Component Architecture
 
 ### Props — use discriminated variants, not booleans:
 
@@ -253,33 +170,24 @@ const hasError = ...;
 ### Barrel files — every major directory has an `index.ts`:
 
 ```typescript
-//#region Exports
 export { Button } from './Button';
 export { Image } from './Image';
 export { Text } from './Text';
-//#endregion Exports
 ```
 
 ---
 
-## 7. Redux
+## 6. Redux
 
 ### Slice structure:
 
 ```typescript
-//#region Imports
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
-//#endregion Imports
 
-//#region Types
 type AuthState = { isAuthenticated: boolean };
-//#endregion Types
 
-//#region Constants
 const initialState: AuthState = { isAuthenticated: false };
-//#endregion Constants
 
-//#region Slice
 const authSlice = createSlice({
   name: 'auth',
   initialState,
@@ -290,24 +198,17 @@ const authSlice = createSlice({
     clearAuth: () => initialState, // ← return initialState directly
   },
 });
-//#endregion Slice
 
-//#region Exports
 export const { setIsAuthenticated, clearAuth } = authSlice.actions;
 export const authReducer = authSlice.reducer;
-//#endregion Exports
 ```
 
 ### Selectors — centralized in `src/redux/selectors.ts`:
 
 ```typescript
-//#region Auth Selectors
 const selectIsAuthenticated = (state: RootState) => state.auth.isAuthenticated;
-//#endregion Auth Selectors
 
-//#region Exports
 export { selectIsAuthenticated, selectLanguage, selectTheme, selectLayout };
-//#endregion Exports
 ```
 
 ### Typed hooks — in `src/redux/store/hooks.ts`:
@@ -323,14 +224,13 @@ The store is configured in `src/redux/store/store.ts` with `redux-persist` for s
 
 ---
 
-## 8. Hooks
+## 7. Hooks
 
-### All hooks go in `//#region Hooks`:
+### All hooks go together:
 
-This includes `useState`, `useRef`, `useForm`, `useTheme`, `useTranslation`, custom hooks — **all** in one region:
+This includes `useState`, `useRef`, `useForm`, `useTheme`, `useTranslation`, custom hooks — **all** in one place:
 
 ```typescript
-//#region Hooks
 const { colors } = useTheme();
 const { t } = useTranslation();
 const dispatch = useAppDispatch();
@@ -344,30 +244,21 @@ const {
   mode: 'onChange',
   resolver: yupResolver(loginSchema),
 });
-//#endregion Hooks
 ```
 
 ### Custom hooks follow this structure:
 
 ```typescript
-//#region Custom Hook
 const useSnackbar = () => {
-  //#region Hooks
   const context = useContext(SnackbarContext);
-  //#endregion Hooks
 
   if (!context)
     throw new Error('useSnackbar must be used within a SnackbarProvider');
 
-  //#region Return
   return context;
-  //#endregion Return
 };
-//#endregion Custom Hook
 
-//#region Exports
 export { useSnackbar };
-//#endregion Exports
 ```
 
 ### Consolidation rule:
@@ -376,7 +267,7 @@ If two hooks listen to the same event source, merge them into a single hook that
 
 ---
 
-## 9. Navigation
+## 8. Navigation
 
 - Navigators live directly in `src/navigation/` (flat, no subdirectories).
 - Two navigators: `AuthNavigator` (stack) and `AppNavigator` (native stack).
@@ -389,15 +280,13 @@ If two hooks listen to the same event source, merge them into a single hook that
   ```
 - Param list types are co-located in the navigator file, exported via bottom exports:
   ```typescript
-  //#region Exports
   export { type AppStackParamList, AppNavigator };
-  //#endregion Exports
   ```
 - Use `@/navigation/routes` for all route name references.
 
 ---
 
-## 10. Theming
+## 9. Theming
 
 - Themes are defined in `src/styles/themes.ts` as MD3 theme overrides.
 - Two custom themes: `CUSTOM_LIGHT_THEME` and `CUSTOM_DARK_THEME`, each spreading the base MD3 theme with custom color palettes from `@/styles/colors`.
@@ -406,7 +295,7 @@ If two hooks listen to the same event source, merge them into a single hook that
 
 ---
 
-## 11. i18n Translation Keys
+## 10. i18n Translation Keys
 
 - Locale files: `src/i18n/locales/en.json` and `es.json`.
 - Key format: `kebab-case`, grouped by feature namespace.
@@ -418,7 +307,7 @@ If two hooks listen to the same event source, merge them into a single hook that
 
 ---
 
-## 12. Form Validation
+## 11. Form Validation
 
 - Schemas live in `src/schemas/<feature>/<name>Schema.ts`.
 - Use `yup` for schema definition with `@hookform/resolvers/yup`.
@@ -431,7 +320,7 @@ If two hooks listen to the same event source, merge them into a single hook that
 
 ---
 
-## 13. Project Structure Reference
+## 12. Project Structure Reference
 
 ```
 src/

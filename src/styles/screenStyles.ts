@@ -1,8 +1,5 @@
-//#region Imports
 import { StyleSheet } from 'react-native';
-//#endregion Imports
 
-//#region Styles
 const screenStyles = StyleSheet.create({
   container: {
     flex: 1,
@@ -15,8 +12,5 @@ const screenStyles = StyleSheet.create({
     opacity: 0.7,
   },
 });
-//#endregion Styles
 
-//#region Exports
 export { screenStyles };
-//#endregion Exports

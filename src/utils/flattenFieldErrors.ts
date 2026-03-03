@@ -1,16 +1,11 @@
-//#region Imports
 import { type ErrorMessageMode, type FlattenedErrors } from './types';
-//#endregion Imports
 
-//#region Types
 type FlattenFieldErrorsProps = {
   errors: Record<string, unknown>;
   mode: ErrorMessageMode;
   prefix?: string;
 };
-//#endregion Types
 
-//#region Utils
 export const flattenFieldErrors = ({
   errors,
   mode,
@@ -61,4 +56,3 @@ export const flattenFieldErrors = ({
 
   return result;
 };
-//#endregion Utils
