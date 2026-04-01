@@ -1,4 +1,4 @@
-package com.reactnativestarter
+package com.juanevillam.reactnativestarter
 
 import com.facebook.react.ReactActivity
 import com.facebook.react.ReactActivityDelegate
