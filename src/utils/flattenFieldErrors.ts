@@ -14,39 +14,51 @@ export const flattenFieldErrors = ({
   const result: FlattenedErrors = {};
 
   for (const key of Object.keys(errors)) {
-    const err = errors[key] as Record<string, unknown> | undefined;
+    const error = errors[key] as Record<string, unknown> | undefined;
     const path = `${prefix}${key}`;
 
-    if (err?.message) {
-      const message = err.message as Record<string, string> | string;
-      const msg =
-        typeof message === 'object' ? (message[mode] ?? message) : message;
+    if (error?.message) {
+      const rawMessage = error.message as Record<string, string> | string;
+      const resolvedMessage =
+        typeof rawMessage === 'object'
+          ? (rawMessage[mode] ?? rawMessage)
+          : rawMessage;
 
-      result[path] = msg as string;
-    } else if (typeof err === 'object' && err !== null) {
-      const errValue = err.value as Record<string, unknown> | undefined;
-      const errLabel = err.label as Record<string, unknown> | undefined;
+      result[path] = resolvedMessage as string;
+    } else if (typeof error === 'object' && error !== null) {
+      const errorValue = error.value as Record<string, unknown> | undefined;
+      const errorLabel = error.label as Record<string, unknown> | undefined;
 
-      if (errValue?.message) {
-        const message = errValue.message as Record<string, string> | string;
-        const msg =
-          typeof message === 'object' ? (message[mode] ?? message) : message;
+      if (errorValue?.message) {
+        const rawMessage = errorValue.message as
+          | Record<string, string>
+          | string;
 
-        result[`${path}.value`] = msg as string;
+        const resolvedMessage =
+          typeof rawMessage === 'object'
+            ? (rawMessage[mode] ?? rawMessage)
+            : rawMessage;
+
+        result[`${path}.value`] = resolvedMessage as string;
       }
 
-      if (errLabel?.message) {
-        const message = errLabel.message as Record<string, string> | string;
-        const msg =
-          typeof message === 'object' ? (message[mode] ?? message) : message;
+      if (errorLabel?.message) {
+        const rawMessage = errorLabel.message as
+          | Record<string, string>
+          | string;
 
-        result[`${path}.label`] = msg as string;
+        const resolvedMessage =
+          typeof rawMessage === 'object'
+            ? (rawMessage[mode] ?? rawMessage)
+            : rawMessage;
+
+        result[`${path}.label`] = resolvedMessage as string;
       }
 
       Object.assign(
         result,
         flattenFieldErrors({
-          errors: err as Record<string, unknown>,
+          errors: error as Record<string, unknown>,
           mode,
           prefix: `${path}.`,
         }),

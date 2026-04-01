@@ -18,9 +18,9 @@ const getFormErrorMessage = ({
     mode,
   });
 
-  const msg = getFirstErrorMessage(flat);
+  const message = getFirstErrorMessage(flat);
 
-  return `snackbar.${msg}`;
+  return `snackbar.${message}`;
 };
 
 export { type GetFormErrorMessageProps, getFormErrorMessage };
