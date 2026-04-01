@@ -42,10 +42,10 @@ const TextInputContent = <T extends FieldValues>(
         <View style={styles.wrapper}>
           <PaperTextInput
             disabled={disabled}
-            mode="outlined"
             error={Boolean(error)}
             keyboardType={keyboardType}
             label={`${t(`fields.${label}`)}${required ? ' *' : ''}`}
+            mode="outlined"
             onChangeText={onChange}
             ref={ref as React.Ref<NativeTextInput>}
             value={value}

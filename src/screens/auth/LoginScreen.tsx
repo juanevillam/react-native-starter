@@ -6,6 +6,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from 'react-native-paper';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { Button, Text } from '@/components/ui';
 import { TextInput } from '@/components/ui';
@@ -23,6 +24,7 @@ import { getFormErrorMessage } from '@/utils/getFormErrorMessage';
 export const LoginScreen = () => {
   const { colors } = useTheme();
   const { t } = useTranslation();
+  const { top } = useSafeAreaInsets();
   const dispatch = useAppDispatch();
   const { showSnackbar } = useSnackbar();
   const {
@@ -40,14 +42,15 @@ export const LoginScreen = () => {
       StyleSheet.create({
         container: {
           backgroundColor: colors.background,
+          paddingTop: top + 30,
         },
       }),
-    [colors.background],
+    [colors.background, top],
   );
 
   const onSubmit = useCallback(
-    (data: LoginFormValues) => {
-      console.log('Login with:', data.email);
+    ({ email }: LoginFormValues) => {
+      console.log('Login with:', email);
       dispatch(setIsAuthenticated(true));
     },
     [dispatch],

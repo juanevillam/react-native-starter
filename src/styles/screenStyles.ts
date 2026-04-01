@@ -4,7 +4,6 @@ const screenStyles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 24,
-    paddingTop: 60,
   },
   subtitle: {
     marginBottom: 24,

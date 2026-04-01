@@ -1,11 +1,7 @@
 import type { RootState } from './store/types';
 
-const selectIsAuthenticated = (state: RootState) => state.auth.isAuthenticated;
+const selectAuth = ({ auth }: RootState) => auth;
 
-const selectLanguage = (state: RootState) => state.layout.language;
+const selectLayout = ({ layout }: RootState) => layout;
 
-const selectTheme = (state: RootState) => state.layout.theme;
-
-const selectLayout = (state: RootState) => state.layout;
-
-export { selectIsAuthenticated, selectLanguage, selectTheme, selectLayout };
+export { selectAuth, selectLayout };

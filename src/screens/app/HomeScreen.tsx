@@ -4,9 +4,11 @@ import { StyleSheet, View } from 'react-native';
 
 import { useTranslation } from 'react-i18next';
 import { RadioButton, useTheme } from 'react-native-paper';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { Button, Text } from '@/components/ui';
 import { type Language } from '@/i18n/i18n';
+import { selectLayout } from '@/redux';
 import { clearAuth } from '@/redux/slices/authSlice';
 import { setLanguage, setTheme } from '@/redux/slices/layoutSlice';
 import { useAppDispatch, useAppSelector } from '@/redux/store/hooks';
@@ -31,13 +33,18 @@ const styles = StyleSheet.create({
 export const HomeScreen = () => {
   const { i18n } = useTranslation();
   const { colors } = useTheme();
+  const { top } = useSafeAreaInsets();
   const dispatch = useAppDispatch();
-  const { language, theme } = useAppSelector(store => store.layout);
+  const { language, theme } = useAppSelector(selectLayout);
 
-  const handleSwitchLanguage = (lang: Language) => {
-    i18n.changeLanguage(lang);
-    dispatch(setLanguage(lang));
+  const handleSwitchLanguage = (language: Language) => {
+    i18n.changeLanguage(language);
+    dispatch(setLanguage(language));
   };
+
+  const handleSwithLanguageToEnglish = () => handleSwitchLanguage('en');
+
+  const handleSwithLanguageToSpanish = () => handleSwitchLanguage('es');
 
   const handleThemeChange = (newTheme: string) =>
     dispatch(setTheme(newTheme as Theme));
@@ -49,9 +56,10 @@ export const HomeScreen = () => {
       StyleSheet.create({
         container: {
           backgroundColor: colors.background,
+          paddingTop: top + 30,
         },
       }),
-    [colors.background],
+    [colors.background, top],
   );
 
   return (
@@ -68,12 +76,12 @@ export const HomeScreen = () => {
           <Button
             label="home.english"
             mode={language === 'en' ? 'contained' : 'outlined'}
-            onPress={() => handleSwitchLanguage('en')}
+            onPress={handleSwithLanguageToEnglish}
           />
           <Button
             label="home.spanish"
             mode={language === 'es' ? 'contained' : 'outlined'}
-            onPress={() => handleSwitchLanguage('es')}
+            onPress={handleSwithLanguageToSpanish}
           />
         </View>
       </View>

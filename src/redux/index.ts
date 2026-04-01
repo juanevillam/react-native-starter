@@ -1,6 +1,1 @@
-export {
-  selectIsAuthenticated,
-  selectLanguage,
-  selectTheme,
-  selectLayout,
-} from './selectors';
+export { selectAuth, selectLayout } from './selectors';

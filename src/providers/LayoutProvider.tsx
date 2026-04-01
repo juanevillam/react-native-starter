@@ -5,6 +5,7 @@ import { useColorScheme } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { PaperProvider } from 'react-native-paper';
 
+import { selectLayout } from '@/redux';
 import { useAppSelector } from '@/redux/store/hooks';
 import { CUSTOM_DARK_THEME, CUSTOM_LIGHT_THEME } from '@/styles/themes';
 
@@ -17,7 +18,7 @@ type LayoutProviderProps = {
 export const LayoutProvider = ({ children }: LayoutProviderProps) => {
   const colorScheme = useColorScheme();
   const { i18n } = useTranslation();
-  const { language, theme } = useAppSelector(store => store.layout);
+  const { language, theme } = useAppSelector(selectLayout);
 
   const themeMapping = {
     system: colorScheme === 'light' ? CUSTOM_LIGHT_THEME : CUSTOM_DARK_THEME,
@@ -29,7 +30,7 @@ export const LayoutProvider = ({ children }: LayoutProviderProps) => {
 
   useEffect(() => {
     i18n.changeLanguage(language);
-  }, [language, i18n]);
+  }, [i18n, language]);
 
   return (
     <PaperProvider theme={paperTheme}>
