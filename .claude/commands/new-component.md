@@ -4,17 +4,12 @@ description: How to create a new React Native component following ReactNativeSta
 
 # Create a New Component
 
-// turbo-all
-
-1. **Read the code style guide first:**
-   Read `.agent/skills/reactnativestarter-code-style/SKILL.md` before proceeding.
-
-2. **Determine location:**
+1. **Determine location:**
    - UI primitives → `src/components/ui/`
    - Feature-specific → `src/components/<feature>/`
    - Screens → `src/screens/<app|auth>/`
 
-3. **Create the component file** using this template:
+2. **Create the component file** using this template:
 
 ```tsx
 import React from 'react';
@@ -39,7 +34,7 @@ export const MyComponent = ({ ...props }: MyComponentProps) => {
 };
 ```
 
-4. **Apply conventions:**
+3. **Apply conventions:**
    - Use `React.memo` if the component is purely presentational (no hooks, no state).
    - Use discriminated `variant` props instead of boolean mode-switching props.
    - Static styles at module level with `StyleSheet.create`.
@@ -49,14 +44,14 @@ export const MyComponent = ({ ...props }: MyComponentProps) => {
    - If shared types are needed, create a `types.ts` in the same directory.
    - Alphabetize JSX props.
 
-5. **Update the barrel file:**
+4. **Update the barrel file:**
    Add the export to the directory's `index.ts`:
 
    ```typescript
    export { MyComponent } from './MyComponent';
    ```
 
-6. **Verify:**
+5. **Verify:**
    ```bash
    npx tsc --noEmit
    npx eslint src/

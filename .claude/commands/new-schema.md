@@ -4,12 +4,7 @@ description: How to create a new Yup form validation schema following ReactNativ
 
 # Create a New Form Schema
 
-// turbo-all
-
-1. **Read the code style guide first:**
-   Read `.agent/skills/reactnativestarter-code-style/SKILL.md` before proceeding.
-
-2. **Create the schema file** at `src/schemas/<feature>/<name>Schema.ts`:
+1. **Create the schema file** at `src/schemas/<feature>/<name>Schema.ts`:
 
 ```typescript
 import * as yup from 'yup';
@@ -37,7 +32,7 @@ const mySchema = yup.object().shape({
 export { type MyFormValues, defaultValues, mySchema };
 ```
 
-3. **Validation message format:**
+2. **Validation message format:**
    Every validation message is an object with two keys:
 
    ```typescript
@@ -47,7 +42,7 @@ export { type MyFormValues, defaultValues, mySchema };
    - `input` — the key used for inline field error messages (displayed below TextInput via `t('validations.<input>')`)
    - `snackbar` — the key used for snackbar notifications (displayed via `t('snackbar.<snackbar>')`)
 
-4. **Always export `defaultValues`** alongside the schema and form values type. These are used by `useForm` in the screen:
+3. **Always export `defaultValues`** alongside the schema and form values type. These are used by `useForm` in the screen:
 
    ```typescript
    const {
@@ -61,9 +56,9 @@ export { type MyFormValues, defaultValues, mySchema };
    });
    ```
 
-5. **Add i18n translations** for all validation and snackbar message keys to both `en.json` and `es.json` (see `/add-translation` workflow).
+4. **Add i18n translations** for all validation and snackbar message keys to both `en.json` and `es.json` (see `/add-translation` command).
 
-6. **Verify:**
+5. **Verify:**
    ```bash
    npx tsc --noEmit
    npx eslint src/

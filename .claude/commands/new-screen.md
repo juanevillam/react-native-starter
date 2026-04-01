@@ -4,16 +4,11 @@ description: How to create a new screen with navigation registration following R
 
 # Create a New Screen
 
-// turbo-all
-
-1. **Read the code style guide first:**
-   Read `.agent/skills/reactnativestarter-code-style/SKILL.md` before proceeding.
-
-2. **Determine the navigator:**
+1. **Determine the navigator:**
    - Auth screens → `src/screens/auth/` and `AuthNavigator.tsx` (stack navigator)
    - App screens → `src/screens/app/` and `AppNavigator.tsx` (native stack navigator)
 
-3. **Create the screen file** at `src/screens/<app|auth>/<Name>Screen.tsx`:
+2. **Create the screen file** at `src/screens/<app|auth>/<Name>Screen.tsx`:
 
 ```tsx
 import { useMemo } from 'react';
@@ -52,7 +47,7 @@ export const MyScreen = () => {
 };
 ```
 
-4. **Register the route** — 3 files need updates:
+3. **Register the route** — 3 files need updates:
 
    **a. Add to the param list** in the navigator file (e.g., `src/navigation/AppNavigator.tsx`):
 
@@ -86,9 +81,9 @@ export const MyScreen = () => {
    export { type AppStackParamList, AppNavigator };
    ```
 
-5. **Add i18n translations** if the screen has user-facing text (see `/add-translation` workflow).
+4. **Add i18n translations** if the screen has user-facing text (see `/add-translation` command).
 
-6. **Verify:**
+5. **Verify:**
    ```bash
    npx tsc --noEmit
    npx eslint src/

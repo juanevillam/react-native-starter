@@ -4,8 +4,6 @@ description: How to verify the codebase compiles and lints cleanly
 
 # Verify Codebase
 
-// turbo-all
-
 1. **TypeScript check** — must produce 0 errors:
 
    ```bash

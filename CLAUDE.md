@@ -1,13 +1,6 @@
----
-name: ReactNativeStarter Code Style Guide
-description: Comprehensive code style, architecture, and conventions for the ReactNativeStarter React Native application. Read this BEFORE writing any code.
----
-
 # ReactNativeStarter Code Style Guide
 
 This document defines the authoritative coding conventions for the ReactNativeStarter React Native app. Every file you create or modify **must** follow these rules exactly.
-
----
 
 ---
 

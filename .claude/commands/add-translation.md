@@ -4,8 +4,6 @@ description: How to add new i18n translation keys to both locale files (en/es)
 
 # Add Translation Keys
 
-// turbo-all
-
 1. **Locale files are at:**
    - English: `src/i18n/locales/en.json`
    - Spanish: `src/i18n/locales/es.json`
