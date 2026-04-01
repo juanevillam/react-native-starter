@@ -97,7 +97,6 @@ src/
 ├── components/ui/       # Reusable UI primitives
 │   ├── text-input/      # Form-connected input with inline validation
 │   ├── Button.tsx        # Translatable button with loading state
-│   ├── Image.tsx         # FastImage wrapper with caching controls
 │   └── Text.tsx          # Translatable text with raw text mode
 │
 ├── hooks/               # Custom React hooks
