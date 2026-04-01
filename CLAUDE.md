@@ -105,7 +105,7 @@ Use `screenStyles` from `@/styles/screenStyles` for consistent screen-level layo
 
 ```typescript
 import { screenStyles } from '@/styles/screenStyles';
-// screenStyles.container: { flex: 1, padding: 24, paddingTop: 60 }
+// screenStyles.container: { flex: 1, padding: 24 }
 // screenStyles.subtitle: { marginBottom: 24, marginTop: 8, opacity: 0.7 }
 ```
 
@@ -145,9 +145,11 @@ type TextProps = { large?: boolean };
 ### `React.memo` — wrap pure presentational (stateless) components:
 
 ```typescript
-export const Image = React.memo(
-  ({ source, style }: ImageProps) => (
-    <FastImage source={source} style={style} />
+export const Button = React.memo(
+  ({ label, onPress }: ButtonProps) => (
+    <Pressable onPress={onPress}>
+      <Text>{label}</Text>
+    </Pressable>
   ),
 );
 ```
@@ -164,7 +166,6 @@ const hasError = ...;
 
 ```typescript
 export { Button } from './Button';
-export { Image } from './Image';
 export { Text } from './Text';
 ```
 
@@ -198,10 +199,14 @@ export const authReducer = authSlice.reducer;
 
 ### Selectors — centralized in `src/redux/selectors.ts`:
 
-```typescript
-const selectIsAuthenticated = (state: RootState) => state.auth.isAuthenticated;
+Selectors return entire slice states. Destructure at the call site:
 
-export { selectIsAuthenticated, selectLanguage, selectTheme, selectLayout };
+```typescript
+const selectAuth = ({ auth }: RootState) => auth;
+
+const selectLayout = ({ layout }: RootState) => layout;
+
+export { selectAuth, selectLayout };
 ```
 
 ### Typed hooks — in `src/redux/store/hooks.ts`:
@@ -323,7 +328,6 @@ src/
 │       │   ├── TextInput.tsx
 │       │   └── types.ts
 │       ├── Button.tsx
-│       ├── Image.tsx
 │       ├── Text.tsx
 │       └── index.ts
 ├── hooks/
