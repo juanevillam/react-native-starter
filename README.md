@@ -9,17 +9,7 @@
   - [Theming](#theming)
   - [Adding a New Language](#adding-a-new-language)
 - [Project Structure](#project-structure)
-  - [components/](#components)
-  - [hooks/](#hooks)
-  - [i18n/](#i18n)
-  - [navigation/](#navigation)
-  - [providers/](#providers)
-  - [redux/](#redux)
-  - [schemas/](#schemas)
-  - [screens/](#screens)
-  - [styles/](#styles)
-  - [types/](#types)
-  - [utils/](#utils)
+  - [How It All Connects](#how-it-all-connects)
 - [Code Quality](#code-quality)
 - [License](#license)
 
@@ -27,7 +17,7 @@
 
 **react-native-starter** is a production-ready React Native starter template designed to eliminate the repetitive boilerplate of setting up a new mobile project. It comes pre-configured with theming, internationalization, state management, form validation, and code quality tooling — so you can skip the setup and jump straight into building your app.
 
-Built using [React Native](https://reactnative.dev) and [TypeScript](https://www.typescriptlang.org), this template delivers a clean, scalable foundation for both iOS and Android applications.
+Built with [React Native](https://reactnative.dev) and [TypeScript](https://www.typescriptlang.org), it delivers a clean, scalable foundation for both iOS and Android.
 
 ### Why I Built This
 
@@ -52,8 +42,6 @@ And thus, **react-native-starter** was born.
 - **Form Validation:** [React Hook Form](https://react-hook-form.com/) paired with [Yup](https://github.com/jquense/yup) schemas, featuring dual-key validation messages for inline and snackbar error display.
 
 - **Code Quality:** ESLint, Prettier, Husky, and lint-staged pre-configured with import ordering, unused import detection, and consistent type import enforcement.
-
-This documentation provides a guide on setting up the project and an overview of the project structure, ensuring you can quickly locate and navigate the key components of the template.
 
 ## Getting Started
 
@@ -104,96 +92,68 @@ This starter uses the default Material Design 3 themes from `react-native-paper`
 
 ## Project Structure
 
-The `src` folder is organized into several key directories, each with a clear purpose to promote maintainability and scalability. Below is an overview of the main folders and what they contain:
+```
+src/
+├── components/ui/       # Reusable UI primitives
+│   ├── text-input/      # Form-connected input with inline validation
+│   ├── Button.tsx        # Translatable button with loading state
+│   ├── Image.tsx         # FastImage wrapper with caching controls
+│   └── Text.tsx          # Translatable text with raw text mode
+│
+├── hooks/               # Custom React hooks
+│   └── useSnackbar.ts   # Access the global snackbar context
+│
+├── i18n/                # Internationalization (i18next)
+│   ├── i18n.ts          # i18next config, Language type, default language
+│   └── locales/         # Translation files (en.json, es.json)
+│
+├── navigation/          # React Navigation configuration
+│   ├── RootNavigator    # Switches between Auth ↔ App based on auth state
+│   ├── AuthNavigator    # Stack navigator for unauthenticated screens
+│   ├── AppNavigator     # Native stack for authenticated screens
+│   └── routes.ts        # Centralized, type-safe route name constants
+│
+├── providers/           # App-level context providers
+│   ├── LayoutProvider   # Resolves theme, syncs language, wraps with PaperProvider
+│   └── SnackbarProvider # Global toast notifications via react-native-paper
+│
+├── redux/               # Redux Toolkit + Redux Persist
+│   ├── slices/          # Feature slices (authSlice, layoutSlice)
+│   ├── store/           # Store config, typed hooks, type definitions
+│   ├── rootReducer.ts   # Combined slice reducers
+│   └── selectors.ts     # Centralized state selectors
+│
+├── schemas/             # Yup form validation schemas by feature
+│   └── auth/            # loginSchema with dual-key error messages
+│
+├── screens/             # Screen components by navigation flow
+│   ├── app/             # Authenticated screens (HomeScreen)
+│   └── auth/            # Unauthenticated screens (LoginScreen)
+│
+├── styles/              # Centralized styling
+│   ├── colors.ts        # Custom color palette (template, commented out)
+│   ├── themes.ts        # MD3 light/dark theme objects + Theme type
+│   └── screenStyles.ts  # Shared screen-level layout styles
+│
+├── types/               # App-wide TypeScript types
+│   └── index.ts         # VoidCallback, Focusable, FormRefs, ScrollViewRef
+│
+└── utils/               # Utility functions
+    ├── getFormErrorMessage.ts   # Extract first validation error for snackbar
+    ├── flattenFieldErrors.ts    # Flatten nested react-hook-form errors
+    ├── getFirstErrorMessage.ts  # Pick first error from flattened map
+    └── types.ts                 # ErrorMessageMode, FlattenedErrors
+```
 
-#### components/
+The app entry point (`App.tsx`) wires everything together: it initializes i18n, enables screen optimization, and wraps the app with `Redux Provider` → `PersistGate` → `LayoutProvider` → `RootNavigator`.
 
-- **Purpose:** Contains reusable React components used across the application.
-- **Structure:**
-  - **ui/**: UI primitives that wrap `react-native-paper` components with translation support and consistent APIs.
-    - `Button.tsx`: Translatable button with loading state support.
-    - `Image.tsx`: Optimized image component wrapping FastImage with caching and priority controls.
-    - `Text.tsx`: Translatable text component with optional raw text mode.
-    - **text-input/**: Form-connected text input with inline validation error display, using `react-hook-form` Controller.
+### How It All Connects
 
-#### hooks/
+**Authentication flow:** `RootNavigator` reads `isAuthenticated` from Redux and renders either `AuthNavigator` (login) or `AppNavigator` (home). Logging in dispatches `setIsAuthenticated(true)`, which flips the navigator — no manual navigation needed.
 
-- **Purpose:** Contains custom React hooks that encapsulate reusable logic.
-- **Structure:**
-  - `useSnackbar.ts`: Provides access to the global snackbar context for displaying toast-style messages from anywhere in the app.
+**Theming:** The user's theme preference (`light`, `dark`, or `system`) is stored in Redux via `layoutSlice` and resolved in `LayoutProvider`, which maps it to the appropriate MD3 theme and passes it down through `PaperProvider`. All components access theme colors via `useTheme()`.
 
-#### i18n/
-
-- **Purpose:** Manages internationalization using i18next.
-- **Structure:**
-  - `i18n.ts`: Initialization and configuration of the i18next framework, including language type definitions and default language setting.
-  - **locales/**: Contains translation files (`en.json`, `es.json`) with matching key structures across all supported languages.
-
-#### navigation/
-
-- **Purpose:** Contains all navigation configuration using React Navigation.
-- **Structure:**
-  - `RootNavigator.tsx`: Top-level navigator that switches between Auth and App stacks based on authentication state from Redux.
-  - `AuthNavigator.tsx`: Stack navigator for authentication screens (Login).
-  - `AppNavigator.tsx`: Native stack navigator for authenticated app screens (Home).
-  - `routes.ts`: Centralized route name constants with type-safe `as const satisfies` pattern.
-
-#### providers/
-
-- **Purpose:** Application-level context providers that wrap the entire app.
-- **Structure:**
-  - `LayoutProvider.tsx`: Resolves the active theme (light/dark/system), applies it via `PaperProvider`, and syncs the persisted language preference with i18next.
-  - `SnackbarProvider.tsx`: Global snackbar context using `react-native-paper`'s Portal and Snackbar components for app-wide toast notifications.
-
-#### redux/
-
-- **Purpose:** Redux Toolkit state management with persistence.
-- **Structure:**
-  - **slices/**: Individual feature slices.
-    - `authSlice.ts`: Authentication state (`isAuthenticated`).
-    - `layoutSlice.ts`: Layout preferences (theme, language).
-  - **store/**: Store configuration, typed hooks (`useAppDispatch`, `useAppSelector`), and type definitions.
-  - `rootReducer.ts`: Combines all slice reducers.
-  - `selectors.ts`: Centralized selector functions for accessing state.
-
-#### schemas/
-
-- **Purpose:** Yup form validation schemas organized by feature.
-- **Structure:**
-  - **auth/**: Authentication-related schemas.
-    - `loginSchema.ts`: Email validation with dual-key error messages (`input` for inline display, `snackbar` for toast display).
-
-#### screens/
-
-- **Purpose:** Screen components organized by navigation flow.
-- **Structure:**
-  - **app/**: Screens available to authenticated users.
-    - `HomeScreen.tsx`: Main screen with language switching, theme selection, and logout functionality.
-  - **auth/**: Screens for unauthenticated users.
-    - `LoginScreen.tsx`: Login form with email validation and snackbar error feedback.
-
-#### styles/
-
-- **Purpose:** Centralized styling configuration.
-- **Structure:**
-  - `colors.ts`: Custom color palette definitions (commented out by default, with instructions for enabling custom themes).
-  - `themes.ts`: MD3 theme objects for light and dark modes, used by `LayoutProvider`.
-  - `screenStyles.ts`: Shared screen-level styles for consistent layout across all screens.
-
-#### types/
-
-- **Purpose:** App-wide TypeScript type definitions.
-- **Structure:**
-  - `index.ts`: Common types used across the app (`VoidCallback`, `Focusable`, `FormRefs`, `ScrollViewRef`).
-
-#### utils/
-
-- **Purpose:** Utility functions for common operations.
-- **Structure:**
-  - `getFormErrorMessage.ts`: Extracts the first validation error from a form submission and formats it as a translatable snackbar key.
-  - `flattenFieldErrors.ts`: Recursively flattens nested `react-hook-form` field errors into a flat map, respecting the error message mode (input vs. snackbar).
-  - `getFirstErrorMessage.ts`: Picks the first error message from a flattened error map.
-  - `types.ts`: Shared types for the error utilities (`ErrorMessageMode`, `FlattenedErrors`).
+**Form validation:** Schemas define validation rules with dual-key error messages — one key for inline display beneath the input (`input` mode) and another for toast-style feedback (`snackbar` mode). On submit, `getFormErrorMessage` extracts the first error and pipes it through `useSnackbar` for display.
 
 ## Code Quality
 
