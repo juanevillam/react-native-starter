@@ -42,5 +42,10 @@ Do NOT put all changes into a single commit unless they are genuinely one logica
 1. Analyze all changes (staged + unstaged + untracked)
 2. Propose the chunking plan to the user with the files and commit message for each chunk
 3. Wait for user approval before committing
-4. Execute each commit in order
+4. For each chunk:
+   a. Stage the files with `git add <specific files>`
+   b. Run `npx lint-staged` manually to lint/format staged files
+   c. Re-stage any files that lint-staged modified: `git add <specific files>`
+   d. Commit with `git commit --no-verify -m "type: message"` to skip the pre-commit hook (since we already ran lint-staged)
+   e. Verify with `git log --oneline -1`
 5. Run `git log --oneline -n <number_of_new_commits>` at the end to show the result
