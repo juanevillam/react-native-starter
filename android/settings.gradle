@@ -1,6 +1,30 @@
 pluginManagement { includeBuild("../node_modules/@react-native/gradle-plugin") }
 plugins { id("com.facebook.react.settings") }
-extensions.configure(com.facebook.react.ReactSettingsExtension){ ex -> ex.autolinkLibrariesFromCommand() }
+extensions.configure(com.facebook.react.ReactSettingsExtension){ ex ->
+  def projectRoot = settings.layout.rootDirectory.dir("../").asFile
+  def rnCli = new File(projectRoot, "node_modules/.bin/react-native").absolutePath
+
+  // Resolve node binary: check local.properties first, then fall back to nvm
+  def nodeExec = "node"
+  def localProps = new Properties()
+  def localPropsFile = new File(settings.layout.rootDirectory.asFile, "local.properties")
+  if (localPropsFile.exists()) {
+    localPropsFile.withInputStream { localProps.load(it) }
+  }
+  if (localProps.containsKey("node.path")) {
+    nodeExec = localProps.getProperty("node.path")
+  } else {
+    def nvmDir = new File(System.getenv("HOME"), ".nvm/versions/node")
+    if (nvmDir.exists()) {
+      def defaultAlias = new File(System.getenv("HOME"), ".nvm/alias/default")
+      def alias = defaultAlias.exists() ? defaultAlias.text.trim() : ""
+      def match = nvmDir.listFiles()?.sort()?.reverse()?.find { alias ? it.name.startsWith("v${alias}") : true }
+      if (match) nodeExec = new File(match, "bin/node").absolutePath
+    }
+  }
+
+  ex.autolinkLibrariesFromCommand([nodeExec, rnCli, "config"])
+}
 rootProject.name = 'ReactNativeStarter'
 include ':app'
 includeBuild('../node_modules/@react-native/gradle-plugin')
