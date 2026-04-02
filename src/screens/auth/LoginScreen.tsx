@@ -48,7 +48,7 @@ export const LoginScreen = () => {
     [colors.background, top],
   );
 
-  const onSubmit = useCallback(
+  const onValid = useCallback(
     ({ email }: LoginFormValues) => {
       console.log('Login with:', email);
       dispatch(setIsAuthenticated(true));
@@ -56,9 +56,9 @@ export const LoginScreen = () => {
     [dispatch],
   );
 
-  const onError = handleSubmit(onSubmit, validationErrors => {
+  const onSubmit = handleSubmit(onValid, errors => {
     const message = getFormErrorMessage({
-      errors: validationErrors,
+      errors,
       mode: 'snackbar',
     });
 
@@ -84,7 +84,7 @@ export const LoginScreen = () => {
       <Button
         label="auth.login.button.label"
         mode="contained"
-        onPress={onError}
+        onPress={onSubmit}
       />
     </View>
   );
