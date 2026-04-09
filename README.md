@@ -15,7 +15,7 @@
 
 ## Introduction
 
-**react-native-starter** is a production-ready React Native Starter template designed to eliminate the repetitive boilerplate of setting up a new mobile project. It comes pre-configured with theming, internationalization, state management, form validation, and code quality tooling — so you can skip the setup and jump straight into building your app.
+**React Native Starter** is a production-ready React Native Starter template designed to eliminate the repetitive boilerplate of setting up a new mobile project. It comes pre-configured with theming, internationalization, state management, form validation, and code quality tooling — so you can skip the setup and jump straight into building your app.
 
 Built with [React Native](https://reactnative.dev) and [TypeScript](https://www.typescriptlang.org), it delivers a clean, scalable foundation for both iOS and Android.
 
@@ -25,7 +25,7 @@ After working on several React Native projects, I noticed I was spending a signi
 
 I decided to extract the essential building blocks from my projects into a single, clean starter template. The goal was to create something that is minimal yet complete: no unnecessary features, no leftover code from a specific app, just the core architecture patterns and tooling that every well-structured React Native app needs from day one.
 
-And thus, **react-native-starter** was born.
+And thus, **React Native Starter** was born.
 
 ### What's Included
 
