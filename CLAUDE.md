@@ -1,4 +1,4 @@
-# ReactNativeStarter Code Style Guide
+# React Native Starter Code Style Guide
 
 This document defines the authoritative coding conventions for the ReactNativeStarter React Native app. Every file you create or modify **must** follow these rules exactly.
 
